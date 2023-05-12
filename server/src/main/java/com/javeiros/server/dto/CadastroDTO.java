@@ -4,11 +4,10 @@ import org.springframework.beans.BeanUtils;
 
 import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
-import com.javeiros.server.model.Cadastro;
+import com.javeiros.server.model.Usuario;
 
 public class CadastroDTO {
 
-	private Long id;
 	private String nome;
 	private String sobrenome;
 	private String numeroWhatsapp;
@@ -21,16 +20,8 @@ public class CadastroDTO {
 	public CadastroDTO() {
 	}
 
-	public CadastroDTO(Cadastro entity) {
+	public CadastroDTO(Usuario entity) {
 		BeanUtils.copyProperties(entity, this);
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {

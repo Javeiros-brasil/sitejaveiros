@@ -13,8 +13,8 @@ import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 
 @Entity
-@Table(name = "cadastro")
-public class Cadastro {
+@Table(name = "usuario")
+public class Usuario {
 	// Descrição geral da classe
 	// Esta classe representa um cadastro de usuário no sistema.
 
@@ -48,13 +48,12 @@ public class Cadastro {
 	private AreaDeAtuacao areaDeAtuacao;
 
 	// Construtor padrão, que não recebe parâmetros.
-	public Cadastro() {
+	public Usuario() {
 	}
 
-	public Cadastro(Long id, String nome, String sobrenome, String numeroWhatsapp, String perfilDiscord, String email,
+	public Usuario(Long id, String nome, String sobrenome, String numeroWhatsapp, String perfilDiscord, String email,
 			String perfilGithub, PerfilCandidato perfilCandidato, AreaDeAtuacao areaDeAtuacao) {
-		// Construtor que recebe todos os parâmetros necessários para criar um objeto
-		// Cadastro.
+		// Construtor que recebe todos os parâmetros necessários para criar um objetoCadastro.
 		super();
 		this.id = id;
 		this.nome = nome;
