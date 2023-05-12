@@ -1,10 +1,10 @@
 package com.javeiros.server.dto;
 
 import org.springframework.beans.BeanUtils;
-
+import com.javeiros.server.model.Usuario;
 import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
-import com.javeiros.server.model.Usuario;
+
 
 public class CadastroDTO {
 
