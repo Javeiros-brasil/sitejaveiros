@@ -13,6 +13,7 @@ public class CadastroDTO {
 	private String numeroWhatsapp;
 	private String perfilDiscord;
 	private String email;
+	private String senha;
 	private String perfilGithub;
 	private PerfilCandidato perfilCandidato;
 	private AreaDeAtuacao areaDeAtuacao;
@@ -62,6 +63,14 @@ public class CadastroDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getPerfilGithub() {
