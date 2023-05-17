@@ -13,18 +13,23 @@ public class UsuarioController {
     @Autowired
     private CadastroRepository cadastroRepository;
 
+    @PostMapping //Cadastro de usuário
+    public Usuario cadastrar(@RequestBody Usuario usuario) {
+        return cadastroRepository.save(usuario);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
 
-        // Procurar o usuário com o ID especificado no banco de dados
+        //Procurar o usuário com o ID especificado no banco de dados
         Usuario usuarioExistente = cadastroRepository.findById(id).orElse(null);
 
-        // Se o usuário não existir, retornar um erro 404 "Not Found"
+        //Se o usuário não existir, retornar um erro 404 Not Found
         if (usuarioExistente == null) {
             return ResponseEntity.notFound().build();
         }
 
-        // Atualizar os dados do usuário existente com as informações fornecidas na requisição
+        //Atualizar os dados do usuário existente com as informações fornecidas na requisição
         usuarioExistente.setNome(usuarioAtualizado.getNome());
         usuarioExistente.setSobrenome(usuarioAtualizado.getSobrenome());
         usuarioExistente.setNumeroWhatsapp(usuarioAtualizado.getNumeroWhatsapp());
@@ -34,10 +39,10 @@ public class UsuarioController {
         usuarioExistente.setPerfilCandidato(usuarioAtualizado.getPerfilCandidato());
         usuarioExistente.setAreaDeAtuacao(usuarioAtualizado.getAreaDeAtuacao());
 
-        // Salvar as mudanças no banco de dados
+        //Salvar as mudanças no banco de dados
         Usuario usuarioAtualizadoSalvo = cadastroRepository.save(usuarioExistente);
 
-        // Retornar uma resposta 200 OK com o objeto do usuário atualizado
+        //Retornar uma resposta 200 OK com o objeto do usuário atualizado
         return ResponseEntity.ok(usuarioAtualizadoSalvo);
     }
 }
