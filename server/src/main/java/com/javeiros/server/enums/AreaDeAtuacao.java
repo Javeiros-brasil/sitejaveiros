@@ -7,5 +7,5 @@ public enum AreaDeAtuacao {
     BACKEND,
     FRONTEND,
     QUALITY_ASSURANCE,
-    MOBILE;
+    MOBILE
 }
