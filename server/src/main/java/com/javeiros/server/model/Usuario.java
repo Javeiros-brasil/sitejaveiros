@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.javeiros.server.dto.CadastroDTO;
 import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 
@@ -32,13 +33,16 @@ public class Usuario {
 	@Column(nullable = false)
 	private String numeroWhatsapp;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String perfilDiscord;
 
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
+	private String senha;
+
+	@Column(nullable = true)
 	private String perfilGithub;
 
 	@Enumerated(EnumType.STRING)
@@ -52,7 +56,7 @@ public class Usuario {
 	}
 
 	public Usuario(Long id, String nome, String sobrenome, String numeroWhatsapp, String perfilDiscord, String email,
-			String perfilGithub, PerfilCandidato perfilCandidato, AreaDeAtuacao areaDeAtuacao) {
+			String senha, String perfilGithub, PerfilCandidato perfilCandidato, AreaDeAtuacao areaDeAtuacao) {
 		// Construtor que recebe todos os parâmetros necessários para criar um objetoCadastro.
 		super();
 		this.id = id;
@@ -61,6 +65,7 @@ public class Usuario {
 		this.numeroWhatsapp = numeroWhatsapp;
 		this.perfilDiscord = perfilDiscord;
 		this.email = email;
+		this.senha = senha;
 		this.perfilGithub = perfilGithub;
 		this.perfilCandidato = perfilCandidato;
 		this.areaDeAtuacao = areaDeAtuacao;
@@ -115,6 +120,10 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getPerfilGithub() {
 		return perfilGithub;
 	}
@@ -137,6 +146,18 @@ public class Usuario {
 
 	public void setAreaDeAtuacao(AreaDeAtuacao areaDeAtuacao) {
 		this.areaDeAtuacao = areaDeAtuacao;
+	}
+
+	public void DtoParseModel(CadastroDTO cadastroDTO){
+		this.nome = cadastroDTO.getNome();
+		this.sobrenome = cadastroDTO.getSobrenome();
+		this.numeroWhatsapp = cadastroDTO.getNumeroWhatsapp();
+		this.perfilDiscord = cadastroDTO.getPerfilDiscord();
+		this.email = cadastroDTO.getEmail();
+		this.senha = cadastroDTO.getSenha();
+		this.perfilGithub = cadastroDTO.getPerfilGithub();
+		this.perfilCandidato = cadastroDTO.getPerfilCandidato();
+		this.areaDeAtuacao = cadastroDTO.getAreaDeAtuacao();
 	}
 
 }
