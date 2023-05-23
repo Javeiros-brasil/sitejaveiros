@@ -120,6 +120,8 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public String getSenha() {	return email;}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
