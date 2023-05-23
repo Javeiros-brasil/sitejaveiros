@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.javeiros.server.dto.CadastroDTO;
+import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 
@@ -148,7 +148,7 @@ public class Usuario {
 		this.areaDeAtuacao = areaDeAtuacao;
 	}
 
-	public void DtoParseModel(CadastroDTO cadastroDTO){
+	public void DtoParseModel(UsuarioDTO cadastroDTO){
 		this.nome = cadastroDTO.getNome();
 		this.sobrenome = cadastroDTO.getSobrenome();
 		this.numeroWhatsapp = cadastroDTO.getNumeroWhatsapp();

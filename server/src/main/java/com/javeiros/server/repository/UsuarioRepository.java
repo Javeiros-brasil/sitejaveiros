@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.javeiros.server.model.Usuario;
 
 @Repository
-public interface CadastroRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 }

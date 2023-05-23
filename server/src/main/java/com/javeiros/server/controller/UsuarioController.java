@@ -1,8 +1,12 @@
 package com.javeiros.server.controller;
 
+import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.model.Usuario;
-import com.javeiros.server.repositories.CadastroRepository;
+
+import com.javeiros.server.repository.UsuarioRepository;
+import com.javeiros.server.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +15,24 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     @Autowired
-    private CadastroRepository cadastroRepository;
+    private UsuarioRepository usuarioRepository;
 
-    @PostMapping //Cadastro de usuário
-    public Usuario cadastrar(@RequestBody Usuario usuario) {
-        return cadastroRepository.save(usuario);
+    @Autowired
+    private UsuarioService usuarioService;
+
+
+    @PostMapping
+    public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO cadastroDTO) {
+        usuarioService.cadastrarUsuario(cadastroDTO);
+        String mensagem = "Usuário cadastrado com sucesso";
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
 
         //Procurar o usuário com o ID especificado no banco de dados
-        Usuario usuarioExistente = cadastroRepository.findById(id).orElse(null);
+        Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
 
         //Se o usuário não existir, retornar um erro 404 Not Found
         if (usuarioExistente == null) {
@@ -40,7 +50,7 @@ public class UsuarioController {
         usuarioExistente.setAreaDeAtuacao(usuarioAtualizado.getAreaDeAtuacao());
 
         //Salvar as mudanças no banco de dados
-        Usuario usuarioAtualizadoSalvo = cadastroRepository.save(usuarioExistente);
+        Usuario usuarioAtualizadoSalvo = usuarioRepository.save(usuarioExistente);
 
         //Retornar uma resposta 200 OK com o objeto do usuário atualizado
         return ResponseEntity.ok(usuarioAtualizadoSalvo);

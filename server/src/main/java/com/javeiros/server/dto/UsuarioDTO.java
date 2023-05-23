@@ -6,7 +6,7 @@ import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 
 
-public class CadastroDTO {
+public class UsuarioDTO {
 
 	private String nome;
 	private String sobrenome;
@@ -18,10 +18,10 @@ public class CadastroDTO {
 	private PerfilCandidato perfilCandidato;
 	private AreaDeAtuacao areaDeAtuacao;
 
-	public CadastroDTO() {
+	public UsuarioDTO() {
 	}
 
-	public CadastroDTO(Usuario entity) {
+	public UsuarioDTO(Usuario entity) {
 		BeanUtils.copyProperties(entity, this);
 	}
 
