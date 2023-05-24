@@ -5,6 +5,11 @@ import com.javeiros.server.model.Usuario;
 import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 
+/*
+	Classe UsuarioDTO
+	=> sua função é transferir dados entre diferentes camadas da aplicação. Esta classe recebe
+	os dados do formulário e transfere para o model Usuario que tem contato direto com o banco de dados.
+*/
 
 public class UsuarioDTO {
 

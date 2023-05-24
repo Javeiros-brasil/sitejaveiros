@@ -12,6 +12,10 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository cadastroRepository;
+
+    /* O método cadastrarUsuario recebe um objeto UsuarioDTO como parâmetro para então convertê-lo em um objeto
+       model usuário O método save do cadastroRepository é chamado para salvar o objeto usuario
+       no banco de dados. */
     public void cadastrarUsuario(UsuarioDTO cadastroDTO) {
        Usuario usuario = new Usuario();
        usuario.DtoParseModel(cadastroDTO);
