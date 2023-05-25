@@ -1,6 +1,10 @@
 /* Estilo para o formulário de cadastro*/
 form {
   width: 450px;
+=======
+/* Estilo para o formulário de login */
+form {
+  width: 300px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f2;
@@ -14,6 +18,8 @@ form {
 }
 
 /* Estilo para os rótulos no formulario de cadastro */
+=======
+/* Estilo para os rótulos */
 label {
   display: block;
   font-weight: bold;
@@ -23,6 +29,10 @@ label {
 /* Estilo para as entradas de texto no formulário de cadastro */
 .form-input {
   width: 95%;
+/* Estilo para as entradas de texto */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -49,6 +59,11 @@ label {
 
 /* Estilo para o sbmit ativado */
 .form-submit:enabled {
+=======
+}
+
+/* Estilo para o botão de envio */
+input[type="submit"] {
   background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
@@ -115,7 +130,3 @@ label {
 .password-input .toggle-password.open-eye::before {
   content: "\f06e"; /* Ícone do olho aberto */
 }
-
-
-
-
