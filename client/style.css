@@ -1,3 +1,7 @@
+/* Estilo para o formulário de cadastro*/
+form {
+  width: 450px;
+=======
 /* Estilo para o formulário de login */
 form {
   width: 300px;
@@ -8,6 +12,13 @@ form {
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
+.form-title {
+  text-align: center;
+  margin-top: 50px;  
+}
+
+/* Estilo para os rótulos no formulario de cadastro */
+=======
 /* Estilo para os rótulos */
 label {
   display: block;
@@ -15,6 +26,9 @@ label {
   margin-bottom: 10px;
 }
 
+/* Estilo para as entradas de texto no formulário de cadastro */
+.form-input {
+  width: 95%;
 /* Estilo para as entradas de texto */
 input[type="text"],
 input[type="password"] {
@@ -24,6 +38,28 @@ input[type="password"] {
   border-radius: 5px;
   border: none;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  background-color: #ffffff;
+}
+
+
+/* Estilo para o submit desativado */
+.form-submit:disabled { 
+  background-color: #ccc;
+  color: #888;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+
+/* Estilo para o sbmit ativado */
+.form-submit:enabled {
+=======
 }
 
 /* Estilo para o botão de envio */
@@ -34,4 +70,63 @@ input[type="submit"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  transition: all 0.5s ease-in
+
+}
+
+
+.form-submit:enabled:hover {
+  background-color: #023f04;
+
+}
+
+
+.form-text-termos {
+  text-align: justify;
+}
+
+
+.form-text-termos a {
+  text-decoration: none; /* Remover sublinhado do link */  
+  display: inline; /* Alterar para display inline */
+  font-size: 18px; /* Aplica negrito ao texto */
+}
+
+
+
+/* Estilos abaixo  para olho mágico  */
+.password-input {
+  position: relative;
+}
+
+.password-input .toggle-password {
+  position: absolute;
+  top: 30%;
+  right: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-bottom: 10px;
+}
+
+
+.password-input .toggle-password.open-eye {
+  position: absolute;
+  top: 30%;
+  right: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-bottom: 10px;
+  color: #4CAF50;
+}
+
+
+.password-input .toggle-password.closed-eye::before {
+  content: "\f070"; /* Ícone do olho fechado */
+}
+
+.password-input .toggle-password.open-eye::before {
+  content: "\f06e"; /* Ícone do olho aberto */
 }

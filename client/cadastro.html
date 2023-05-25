@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Javeiros</title>
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="cadastroStyle.css" media="screen" />
+  <script src="cadastroFunction.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<body>
+  <h1 class="form-title" >Cadastro</h1>
+  <form action="" method="POST" onsubmit="return enviarFormulario()">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" class="form-input" name="nome"  required><br>
+
+    <label for="sobrenome">Sobrenome:</label>
+    <input type="text" id="sobrenome" class="form-input" name="sobrenome" required><br>
+
+    <label for="linkedin">Perfil LinkedIn:</label>
+    <input type="text" id="linkedin" class="form-input" name="linkedin"><br>
+
+    <label for="whatsapp">Número WhatsApp:</label>
+    <input type="text" id="whatsapp" class="form-input" name="whatsapp"><br>
+
+    <label for="discord">Discord:</label>
+    <input type="text" id="discord" class="form-input" name="discord"><br>
+
+    <label for="email">Endereço de E-mail:</label>
+    <input type="email" id="email" class="form-input" name="email" required><br>
+
+    <label for="github">GitHub:</label>
+    <input type="text" id="github" class="form-input" name="github"><br>
+
+    <label for="senha">Senha:</label>
+    <div class="password-input">
+      <input type="password" id="senha" class="form-input" name="senha">
+      <i class="far fa-eye toggle-password closed-eye" onclick="togglePasswordVisibility()"></i>
+    </div>
+
+    <label for="confirmarSenha">Confirmar Senha:</label>
+    <input type="password" id="confirmarSenha" class="form-input" name="confirmarSenha"><br>
+
+    <label for="perfil">Perfil do Candidato:</label>
+    <select id="perfil" class="form-input" name="perfil" style="width: 100%;">
+      <option></option>
+      <option value="junior">Junior</option>
+      <option value="mentor">Mentor</option>
+    </select><br>
+
+    <label for="area">Área de Atuação:</label>
+    <select id="area"  class="form-input" name="area" style="width: 100%;">
+      <option></option>
+      <option value="Agilista">Agilista</option>
+      <option value="Scrum Master">Scrum Master</option>
+      <option value="Team Lead">Team Lead</option>
+      <option value="Back-End">Back-End</option>
+      <option value="Quality Assurance (QA)">Quality Assurance (QA)</option>
+      <option value="Mobile">Mobile</option>
+      <option value="Front-End">Front-End</option>
+    </select>
+
+    <label for="termos">
+      <p class="form-text-termos">
+        Antes de clicar em "criar minha conta", por favor leia as <a href="#" onclick="marcarTermosLidos()">Políticas de
+        Privacidade</a> e os <a href="#" onclick="marcarPoliticaLida()">Termos de Uso</a> da Comunidade Javeiros
+        Brasil.
+      </p>
+    </label>
+
+    <input type="submit" id="criarConta" class="form-submit" value="Criar minha conta" disabled>
+  </form>
+
+</body>
+
+</html>
