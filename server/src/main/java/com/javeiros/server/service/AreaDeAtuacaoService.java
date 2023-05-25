@@ -20,8 +20,10 @@ public class AreaDeAtuacaoService {
 
     public AreaDeAtuacao salvar(AreaDeAtuacaoDTO areaDeAtuacaoDTO){
 
+        //verifica se o metodo ja esta cadastrado buscando pelo nome
         AreaDeAtuacao area = areaDeAtuacaoRepository.findByNomeArea(areaDeAtuacaoDTO.getNomeArea());
 
+        //caso ja a entidade ja esta cadastrada o resultado não vai ser nulo e sera lançada essa exception
         if(area != null){
             throw new EntidadeJaExisteException(String.format("A Area de Atuação de nome %s ja esta cadastrada", areaDeAtuacaoDTO.getNomeArea()));
         }
@@ -32,9 +34,10 @@ public class AreaDeAtuacaoService {
         return areaDeAtuacaoRepository.save(areaDeAtuacao);
     }
 
+    public List<AreaDeAtuacaoDTO> listar(){
+        List<AreaDeAtuacao> areaDeAtuacao = areaDeAtuacaoRepository.findAll();
+        return AreaDeAtuacaoDTO.converterListDto(areaDeAtuacao);
 
-    public List<AreaDeAtuacao> listar(){
-        return areaDeAtuacaoRepository.findAll();
     }
 
 }

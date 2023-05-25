@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -31,9 +32,11 @@ public class UsuarioController {
     a mensagem "Usuario cadastrado com sucesso". */
     @PostMapping
     public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO cadastroDTO) {
+
         usuarioService.cadastrarUsuario(cadastroDTO);
         String mensagem = "Usuário cadastrado com sucesso";
         return ResponseEntity.status(HttpStatus.CREATED).body(mensagem);
+
     }
 
     @PutMapping("/{id}")

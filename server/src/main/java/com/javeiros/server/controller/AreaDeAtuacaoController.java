@@ -35,7 +35,7 @@ public class AreaDeAtuacaoController {
 
     @GetMapping
     public ResponseEntity listarAreas(){
-        List<AreaDeAtuacao> areas = areaDeAtuacaoService.listar();
+        List<AreaDeAtuacaoDTO> areas = areaDeAtuacaoService.listar();
         return ResponseEntity.status(HttpStatus.OK).body(areas);
 
     }
