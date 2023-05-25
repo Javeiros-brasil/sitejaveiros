@@ -4,18 +4,24 @@ import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.model.Usuario;
 
 import com.javeiros.server.repository.UsuarioRepository;
+import com.javeiros.server.repository.filtro.UsuarioCustomRepository;
 import com.javeiros.server.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioCustomRepository usuarioCustomRepository;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -49,7 +55,7 @@ public class UsuarioController {
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
         usuarioExistente.setPerfilGithub(usuarioAtualizado.getPerfilGithub());
         usuarioExistente.setPerfilCandidato(usuarioAtualizado.getPerfilCandidato());
-        usuarioExistente.setAreaDeAtuacao(usuarioAtualizado.getAreaDeAtuacao());
+
 
         //Salvar as mudanças no banco de dados
         Usuario usuarioAtualizadoSalvo = usuarioRepository.save(usuarioExistente);
@@ -57,4 +63,27 @@ public class UsuarioController {
         //Retornar uma resposta 200 OK com o objeto do usuário atualizado
         return ResponseEntity.ok(usuarioAtualizadoSalvo);
     }
+
+
+    @GetMapping("/filtro")
+    public List<UsuarioDTO> filtroUsuario(
+            @RequestParam(required = false) List<String> nomesArea,
+            @RequestParam(required = false) String nomeUsuario){
+
+        List<UsuarioDTO> artigos = usuarioService.filtroUsuario(nomesArea, nomeUsuario);
+
+        return artigos;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

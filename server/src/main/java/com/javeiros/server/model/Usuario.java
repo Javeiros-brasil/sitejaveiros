@@ -1,17 +1,11 @@
 package com.javeiros.server.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.javeiros.server.dto.UsuarioDTO;
-import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -22,10 +16,10 @@ public class Usuario {
 	// Atributos da classe
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idUsuario;
 
 	@Column(nullable = false)
-	private String nome;
+	private String nomeUsuario;
 
 	@Column(nullable = false)
 	private String sobrenome;
@@ -48,19 +42,29 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private PerfilCandidato perfilCandidato;
 
-	@Enumerated(EnumType.STRING)
-	private AreaDeAtuacao areaDeAtuacao;
+
+
+	@Column(nullable = true)
+	@ManyToMany
+	@JoinTable(
+			name = "area_usuario",
+			joinColumns = @JoinColumn(name = "id_usuario"),
+			inverseJoinColumns = @JoinColumn(name = "id_area")
+	)
+	private List<AreaDeAtuacao> areas;
+
+
 
 	// Construtor padrão, que não recebe parâmetros.
 	public Usuario() {
 	}
 
 	public Usuario(Long id, String nome, String sobrenome, String numeroWhatsapp, String perfilDiscord, String email,
-			String senha, String perfilGithub, PerfilCandidato perfilCandidato, AreaDeAtuacao areaDeAtuacao) {
+			String senha, String perfilGithub, PerfilCandidato perfilCandidato) {
 		// Construtor que recebe todos os parâmetros necessários para criar um objetoCadastro.
 		super();
-		this.id = id;
-		this.nome = nome;
+		this.idUsuario = id;
+		this.nomeUsuario = nome;
 		this.sobrenome = sobrenome;
 		this.numeroWhatsapp = numeroWhatsapp;
 		this.perfilDiscord = perfilDiscord;
@@ -68,24 +72,42 @@ public class Usuario {
 		this.senha = senha;
 		this.perfilGithub = perfilGithub;
 		this.perfilCandidato = perfilCandidato;
-		this.areaDeAtuacao = areaDeAtuacao;
+
 	}
 
 	// Getters e setters para cada atributo
-	public Long getId() {
-		return id;
+
+
+	public List<AreaDeAtuacao> getAreas() {
+		return areas;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setAreas(List<AreaDeAtuacao> areas) {
+		this.areas = areas;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getNome() {
-		return nome;
+		return nomeUsuario;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nomeUsuario = nome;
 	}
 
 	public String getSobrenome() {
@@ -140,24 +162,18 @@ public class Usuario {
 		this.perfilCandidato = perfilCandidato;
 	}
 
-	public AreaDeAtuacao getAreaDeAtuacao() {
-		return areaDeAtuacao;
-	}
-
-	public void setAreaDeAtuacao(AreaDeAtuacao areaDeAtuacao) {
-		this.areaDeAtuacao = areaDeAtuacao;
-	}
 
 	public void DtoParseModel(UsuarioDTO cadastroDTO){
-		this.nome = cadastroDTO.getNome();
+		this.nomeUsuario = cadastroDTO.getNomeUsuario();
 		this.sobrenome = cadastroDTO.getSobrenome();
+		this.senha = cadastroDTO.getSenha();
 		this.numeroWhatsapp = cadastroDTO.getNumeroWhatsapp();
 		this.perfilDiscord = cadastroDTO.getPerfilDiscord();
 		this.email = cadastroDTO.getEmail();
-		this.senha = cadastroDTO.getSenha();
 		this.perfilGithub = cadastroDTO.getPerfilGithub();
 		this.perfilCandidato = cadastroDTO.getPerfilCandidato();
-		this.areaDeAtuacao = cadastroDTO.getAreaDeAtuacao();
+		this.areas=cadastroDTO.getAreas();
+
 	}
 
 }

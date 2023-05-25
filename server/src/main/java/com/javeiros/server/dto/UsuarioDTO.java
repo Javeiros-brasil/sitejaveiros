@@ -1,9 +1,12 @@
 package com.javeiros.server.dto;
 
+import com.javeiros.server.model.AreaDeAtuacao;
 import org.springframework.beans.BeanUtils;
 import com.javeiros.server.model.Usuario;
-import com.javeiros.server.enums.AreaDeAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 	Classe UsuarioDTO
@@ -13,29 +16,71 @@ import com.javeiros.server.enums.PerfilCandidato;
 
 public class UsuarioDTO {
 
-	private String nome;
+	private String nomeUsuario;
 	private String sobrenome;
 	private String numeroWhatsapp;
 	private String perfilDiscord;
 	private String email;
 	private String senha;
+
 	private String perfilGithub;
 	private PerfilCandidato perfilCandidato;
-	private AreaDeAtuacao areaDeAtuacao;
+	private List<AreaDeAtuacao> areas;
+
+	public UsuarioDTO(String nomeUsuario, String sobrenome, String numeroWhatsapp, String perfilDiscord,
+					  String email, String perfilGithub,PerfilCandidato perfilCandidato, List<AreaDeAtuacao> areas) {
+		this.nomeUsuario = nomeUsuario;
+		this.sobrenome = sobrenome;
+		this.numeroWhatsapp = numeroWhatsapp;
+		this.perfilDiscord = perfilDiscord;
+		this.email = email;
+		this.perfilGithub = perfilGithub;
+		this.perfilCandidato = perfilCandidato;
+		this.areas = areas;
+	}
+	// metodo que converte uma list<Usuario> para um List<usuarioDto>
+	public static List<UsuarioDTO> converterListDto(List<Usuario> usuarios) {
+		return usuarios.stream()
+				.map(usuario -> new UsuarioDTO(
+						usuario.getNomeUsuario(), usuario.getSobrenome(),
+						usuario.getNumeroWhatsapp(), usuario.getPerfilDiscord(),
+						usuario.getEmail(), usuario.getPerfilGithub(),
+						usuario.getPerfilCandidato(), usuario.getAreas()
+						))
+				.collect(Collectors.toList());
+	}
+
+
 
 	public UsuarioDTO() {
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public UsuarioDTO(Usuario entity) {
 		BeanUtils.copyProperties(entity, this);
 	}
 
-	public String getNome() {
-		return nome;
+	public List<AreaDeAtuacao> getAreas() {
+		return areas;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setAreas(List<AreaDeAtuacao> areas) {
+		this.areas = areas;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSobrenome() {
@@ -70,13 +115,7 @@ public class UsuarioDTO {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public String getPerfilGithub() {
 		return perfilGithub;
@@ -94,12 +133,6 @@ public class UsuarioDTO {
 		this.perfilCandidato = perfilCandidato;
 	}
 
-	public AreaDeAtuacao getAreaDeAtuacao() {
-		return areaDeAtuacao;
-	}
 
-	public void setAreaDeAtuacao(AreaDeAtuacao areaDeAtuacao) {
-		this.areaDeAtuacao = areaDeAtuacao;
-	}
 
 }
