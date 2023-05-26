@@ -32,10 +32,12 @@ public class UsuarioController {
     a mensagem "Usuario cadastrado com sucesso". */
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO cadastroDTO) {
-
-        usuarioService.cadastrarUsuario(cadastroDTO);
-        String mensagem = "Usuário cadastrado com sucesso";
-        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem);
+        try {
+            usuarioService.cadastrarUsuario(cadastroDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso");
+        } catch (RuntimeException e){
+            return ResponseEntity.badRequest().body("Ocorreu um erro ao salvar o novo usuário, favor tente novamente");
+        }
 
     }
 
