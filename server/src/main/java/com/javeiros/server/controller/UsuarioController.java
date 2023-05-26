@@ -42,29 +42,14 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
 
-        //Procurar o usuário com o ID especificado no banco de dados
-        Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
+        Usuario usuario = usuarioService.atualizarUsuario(id, usuarioAtualizado);
 
         //Se o usuário não existir, retornar um erro 404 Not Found
-        if (usuarioExistente == null) {
+        if (usuario == null) {
             return ResponseEntity.notFound().build();
         }
-
-        //Atualizar os dados do usuário existente com as informações fornecidas na requisição
-        usuarioExistente.setNome(usuarioAtualizado.getNome());
-        usuarioExistente.setSobrenome(usuarioAtualizado.getSobrenome());
-        usuarioExistente.setNumeroWhatsapp(usuarioAtualizado.getNumeroWhatsapp());
-        usuarioExistente.setPerfilDiscord(usuarioAtualizado.getPerfilDiscord());
-        usuarioExistente.setEmail(usuarioAtualizado.getEmail());
-        usuarioExistente.setPerfilGithub(usuarioAtualizado.getPerfilGithub());
-        usuarioExistente.setPerfilCandidato(usuarioAtualizado.getPerfilCandidato());
-
-
-        //Salvar as mudanças no banco de dados
-        Usuario usuarioAtualizadoSalvo = usuarioRepository.save(usuarioExistente);
-
         //Retornar uma resposta 200 OK com o objeto do usuário atualizado
-        return ResponseEntity.ok(usuarioAtualizadoSalvo);
+        return ResponseEntity.ok(usuario);
     }
 
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository cadastroRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private UsuarioCustomRepository usuarioCustomRepository;
@@ -38,6 +38,33 @@ public class UsuarioService {
 
         return UsuarioDTO.converterListDto(artigos);
 
+    }
+
+    public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
+
+        //Procurar o usuário com o ID especificado no banco de dados
+        Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
+
+        //Se o usuário não existir, vai retornar nulo
+        if(usuarioExistente == null) {
+            return null;
+        }
+
+        //Atualizar os dados do usuário existente com as informações fornecidas na requisição
+        usuarioExistente.setNome(usuarioAtualizado.getNome());
+        usuarioExistente.setSobrenome(usuarioAtualizado.getSobrenome());
+        usuarioExistente.setNumeroWhatsapp(usuarioAtualizado.getNumeroWhatsapp());
+        usuarioExistente.setPerfilDiscord(usuarioAtualizado.getPerfilDiscord());
+        usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+        usuarioExistente.setPerfilGithub(usuarioAtualizado.getPerfilGithub());
+        usuarioExistente.setPerfilCandidato(usuarioAtualizado.getPerfilCandidato());
+        usuarioExistente.setAreaDeAtuacao(usuarioAtualizado.getAreaDeAtuacao());
+
+        //Salvar as mudanças no banco de dados
+        Usuario usuarioAtualizadoSalvo = usuarioRepository.save(usuarioExistente);
+
+        //Retornar o usuário que foi atualizado
+        return  usuarioAtualizadoSalvo;
     }
 
 
