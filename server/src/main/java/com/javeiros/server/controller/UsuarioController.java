@@ -30,7 +30,7 @@ public class UsuarioController {
     /* Endpoint para cadastrar um novo usuário. O método recebe os dados do formulário que por sua vez é passado
     como argumento no método cadastrarUsuario da camada service. Cadastro sendo realizado com sucesso, é retornada
     a mensagem "Usuario cadastrado com sucesso". */
-    @PostMapping
+    @PostMapping("/cadastro")
     public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO cadastroDTO) {
 
         usuarioService.cadastrarUsuario(cadastroDTO);
