@@ -27,7 +27,7 @@ public class UsuarioService {
     public void cadastrarUsuario(UsuarioDTO cadastroDTO) {
        Usuario usuario = new Usuario();
        usuario.DtoParseModel(cadastroDTO);
-       cadastroRepository.save(usuario);
+       usuarioRepository.save(usuario);
     }
 
 
