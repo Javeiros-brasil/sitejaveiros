@@ -12,15 +12,15 @@ public class LoginController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest){
-        String email = loginRequest.getEmail();
-        String senha = loginRequest.getSenha();
-
-        if (authService.authenticate(email, senha)){
-            return "Login efetuado com sucesso!";
-        } else {
-            return "Credenciais inválidas!";
-        }
-    }
+//    @PostMapping("/login")
+//    public String login(@RequestBody LoginRequest loginRequest){
+//        String email = loginRequest.getEmail();
+//        String senha = loginRequest.getSenha();
+//
+//        if (authService.authenticate(email, senha)){
+//            return "Login efetuado com sucesso!";
+//        } else {
+//            return "Credenciais inválidas!";
+//        }
+//    }
 }

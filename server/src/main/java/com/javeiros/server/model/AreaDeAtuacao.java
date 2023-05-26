@@ -14,6 +14,12 @@ public class AreaDeAtuacao {
     @Column(nullable = true)
     private String nomeArea;
 
+    public AreaDeAtuacao(){}
+
+    public AreaDeAtuacao(Long idArea, String nomeArea) {
+        this.idArea = idArea;
+        this.nomeArea = nomeArea;
+    }
 
     public Long getIdArea() {
         return idArea;

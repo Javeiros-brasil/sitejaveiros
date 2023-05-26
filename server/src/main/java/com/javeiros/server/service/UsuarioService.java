@@ -58,7 +58,7 @@ public class UsuarioService {
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
         usuarioExistente.setPerfilGithub(usuarioAtualizado.getPerfilGithub());
         usuarioExistente.setPerfilCandidato(usuarioAtualizado.getPerfilCandidato());
-        usuarioExistente.setAreaDeAtuacao(usuarioAtualizado.getAreaDeAtuacao());
+        usuarioExistente.setAreas(usuarioAtualizado.getAreas());
 
         //Salvar as mudanças no banco de dados
         Usuario usuarioAtualizadoSalvo = usuarioRepository.save(usuarioExistente);
