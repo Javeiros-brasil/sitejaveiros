@@ -23,7 +23,7 @@ public class AreaDeAtuacaoService {
         //verifica se o metodo ja esta cadastrado buscando pelo nome
         AreaDeAtuacao area = areaDeAtuacaoRepository.findByNomeArea(areaDeAtuacaoDTO.getNomeArea());
 
-        //caso ja a entidade ja esta cadastrada o resultado não vai ser nulo e sera lançada essa exception
+        //caso a entidade ja esta cadastrada o resultado não vai ser nulo e sera lançada essa exception
         if(area != null){
             throw new EntidadeJaExisteException(String.format("A Area de Atuação de nome %s ja esta cadastrada", areaDeAtuacaoDTO.getNomeArea()));
         }
