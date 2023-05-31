@@ -34,14 +34,14 @@ public class UsuarioControllerTest {
     @BeforeEach
     void setup(){
         usuarioDTO = new UsuarioDTO("Erasmo", "Bezerra", "27997512017",
-                                    "Erasmo Bezerra#9245", "erasmo.ads.tech@gmail.com",
+                                    "Erasmo Bezerra#9245", "erasmo.ads.tech@gmail.com", "sd34r3ferf34f",
                                     "erasmobezerra", PerfilCandidato.JUNIOR,
                                     Arrays.asList( new AreaDeAtuacao(1L,"BACKEND"),
                                                    new AreaDeAtuacao(2L, "FRONTEND")));
     }
 
     @Test
-    void deveCadastrarUsuario() {
+    void deveSalvarUsuario_CadastrarUsuario() {
         /* Simulamos o método cadastrarUsuario() do serviço UsuarioService para que ele não faça nada (usando Mockito.doNothing()).
         Isso é feito para isolar o teste e focar na verificação do controlador em si. */
         Mockito.doNothing().when(usuarioService).cadastrarUsuario(Mockito.any(UsuarioDTO.class));
@@ -57,7 +57,7 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    void deveRetornarBadRequestEmCasoDeExcecaoAoCadastrarUsuario() {
+    void deveRetornarBadRequest_CadastrarUsuario() {
         // Simulamos uma exceção lançada pelo UsuarioServiço
         Mockito.doThrow(RuntimeException.class).when(usuarioService).cadastrarUsuario(Mockito.any(UsuarioDTO.class));
 

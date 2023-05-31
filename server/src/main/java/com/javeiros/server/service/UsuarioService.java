@@ -1,13 +1,12 @@
 package com.javeiros.server.service;
 
 import com.javeiros.server.dto.UsuarioDTO;
+import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.repository.UsuarioRepository;
 import com.javeiros.server.repository.filtro.UsuarioCustomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,13 +20,15 @@ public class UsuarioService {
     @Autowired
     private UsuarioCustomRepository usuarioCustomRepository;
 
-    /* O método cadastrarUsuario recebe um objeto UsuarioDTO como parâmetro para então convertê-lo em um objeto
-       model usuário O método save do cadastroRepository é chamado para salvar o objeto usuario
-       no banco de dados. */
     public void cadastrarUsuario(UsuarioDTO cadastroDTO) {
-       Usuario usuario = new Usuario();
-       usuario.DtoParseModel(cadastroDTO);
-       usuarioRepository.save(usuario);
+        Usuario verificaEmail = usuarioRepository.findByEmail(cadastroDTO.getEmail());
+        if(verificaEmail != null){
+            throw new EntidadeJaExisteException(String.format("Este email já foi cadastrado por outro usuário.", cadastroDTO.getEmail()));
+        } else {
+            Usuario usuario = new Usuario();
+            usuario.DtoParseModel(cadastroDTO);
+            usuarioRepository.save(usuario);
+        }
     }
 
 
