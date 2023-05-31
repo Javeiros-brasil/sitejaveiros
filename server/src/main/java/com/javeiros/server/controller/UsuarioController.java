@@ -1,7 +1,6 @@
 package com.javeiros.server.controller;
 
 import com.javeiros.server.dto.UsuarioDTO;
-import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.model.Usuario;
 
 import com.javeiros.server.repository.UsuarioRepository;
@@ -28,16 +27,18 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    /* Endpoint para cadastrar um novo usuário. O método recebe os dados do formulário que por sua vez é passado
+    como argumento no método cadastrarUsuario da camada service. Cadastro sendo realizado com sucesso, é retornada
+    a mensagem "Usuario cadastrado com sucesso". */
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO cadastroDTO) {
         try {
             usuarioService.cadastrarUsuario(cadastroDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso");
-        }catch (EntidadeJaExisteException e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e){
             return ResponseEntity.badRequest().body("Ocorreu um erro ao salvar o novo usuário, favor tente novamente");
         }
+
     }
 
     @PutMapping("/{id}")

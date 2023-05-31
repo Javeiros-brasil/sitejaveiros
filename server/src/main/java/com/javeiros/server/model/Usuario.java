@@ -10,6 +10,10 @@ import java.util.List;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
+	// Descrição geral da classe
+	// Esta classe representa um cadastro de usuário no sistema.
+
+	// Atributos da classe
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUsuario;
@@ -23,6 +27,7 @@ public class Usuario {
 	@Column(nullable = false)
 	private String numeroWhatsapp;
 
+	@Column(nullable = true)
 	private String perfilDiscord;
 
 	@Column(nullable = false, unique = true)
@@ -31,10 +36,13 @@ public class Usuario {
 	@Column(nullable = false, unique = true)
 	private String senha;
 
+	@Column(nullable = true)
 	private String perfilGithub;
 
 	@Enumerated(EnumType.STRING)
 	private PerfilCandidato perfilCandidato;
+
+
 
 	@Column(nullable = true)
 	@ManyToMany
@@ -46,6 +54,8 @@ public class Usuario {
 	private List<AreaDeAtuacao> areas;
 
 
+
+	// Construtor padrão, que não recebe parâmetros.
 	public Usuario() {
 	}
 
@@ -64,6 +74,9 @@ public class Usuario {
 		this.perfilCandidato = perfilCandidato;
 
 	}
+
+	// Getters e setters para cada atributo
+
 
 	public List<AreaDeAtuacao> getAreas() {
 		return areas;
