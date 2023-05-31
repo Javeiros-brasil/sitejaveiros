@@ -11,6 +11,8 @@ public class AreaDeAtuacaoDTO {
     private String nomeArea;
 
 
+
+
     public AreaDeAtuacaoDTO() {
     }
 
