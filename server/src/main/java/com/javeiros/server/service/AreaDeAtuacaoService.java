@@ -3,10 +3,8 @@ package com.javeiros.server.service;
 import com.javeiros.server.dto.AreaDeAtuacaoDTO;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.model.AreaDeAtuacao;
-import com.javeiros.server.model.Usuario;
 import com.javeiros.server.repository.AreaDeAtuacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

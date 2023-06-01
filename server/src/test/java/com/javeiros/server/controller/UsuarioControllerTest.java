@@ -7,7 +7,6 @@ import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.AreaDeAtuacao;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.service.UsuarioService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -98,7 +97,8 @@ public class UsuarioControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertTrue(response.getBody().contains(usuarioDTO));
-    }
+
+        }
     }
 
 
