@@ -5,6 +5,7 @@ import com.javeiros.server.enums.PerfilCandidato;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.AreaDeAtuacao;
+import com.javeiros.server.model.Usuario;
 import com.javeiros.server.service.UsuarioService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,6 @@ import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-
 
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +32,7 @@ public class UsuarioControllerTest {
     @Mock
     private UsuarioService usuarioService;
     UsuarioDTO usuarioDTO;
+    Usuario novoUsuario;
 
 
     @BeforeEach
@@ -91,12 +90,16 @@ public class UsuarioControllerTest {
     @Test
     void deveRetornarUsuarioBuscadoNoFiltro() {
 
+        // Mock do resultado do serviço
+        when(usuarioService.filtroUsuario(Arrays.asList("BACKEND"), "Erasmo"))
+                .thenReturn(Arrays.asList(usuarioDTO));
 
-        ResponseEntity<List<Usuario>> response = usuarioController.filtroUsuario(Arrays.asList("BACKEND", "FRONTEND"), "Erasmo");
+        ResponseEntity<List<UsuarioDTO>> response = usuarioController.filtroUsuario(Arrays.asList("BACKEND"), "Erasmo");
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertTrue(response.getBody().contains(usuarioDTO));
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody().contains(usuarioDTO));
+    }
     }
 
 
-}
+

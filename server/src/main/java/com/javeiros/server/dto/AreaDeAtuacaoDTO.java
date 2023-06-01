@@ -8,12 +8,21 @@ import java.util.stream.Collectors;
 
 public class AreaDeAtuacaoDTO {
 
+
+    private Long idArea;
     private String nomeArea;
 
+    public AreaDeAtuacaoDTO(Long idArea, String nomeArea) {
+        this.idArea = idArea;
+        this.nomeArea = nomeArea;
+    }
 
+    public Long getIdArea() {
+        return idArea;
+    }
 
-
-    public AreaDeAtuacaoDTO() {
+    public void setIdArea(Long idArea) {
+        this.idArea = idArea;
     }
 
     public AreaDeAtuacaoDTO(String nomeArea) {
@@ -32,6 +41,7 @@ public class AreaDeAtuacaoDTO {
     public static List<AreaDeAtuacaoDTO> converterListDto(List<AreaDeAtuacao> areas) {
         return areas.stream()
                 .map(areaDeAtuacao -> new AreaDeAtuacaoDTO(
+                        areaDeAtuacao.getIdArea(),
                         areaDeAtuacao.getNomeArea()
                 ))
                 .collect(Collectors.toList());
