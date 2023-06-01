@@ -2,9 +2,11 @@ package com.javeiros.server.service;
 
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.exception.EntidadeJaExisteException;
+import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.repository.UsuarioRepository;
 import com.javeiros.server.repository.filtro.UsuarioCustomRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +22,19 @@ public class UsuarioService {
     @Autowired
     private UsuarioCustomRepository usuarioCustomRepository;
 
-    public void cadastrarUsuario(UsuarioDTO cadastroDTO) {
-        Usuario verificaEmail = usuarioRepository.findByEmail(cadastroDTO.getEmail());
-        if(verificaEmail != null){
-            throw new EntidadeJaExisteException(String.format("Este email já foi cadastrado por outro usuário.", cadastroDTO.getEmail()));
-        } else {
-            Usuario usuario = new Usuario();
-            usuario.DtoParseModel(cadastroDTO);
-            usuarioRepository.save(usuario);
+    public Usuario cadastrarUsuario(UsuarioDTO usuarioDTO) {
+        Usuario verificaEmail = usuarioRepository.findByEmail(usuarioDTO.getEmail());
+
+        if (verificaEmail != null) {
+            throw new EntidadeJaExisteException(String.format("Este email já foi cadastrado por outro usuário."));
+        }
+
+        try {
+            Usuario novoUsuario = new Usuario();
+            BeanUtils.copyProperties(usuarioDTO, novoUsuario);
+            return usuarioRepository.save(novoUsuario);
+        } catch (RuntimeException e) {
+            throw new UsuarioNaoSalvoException(String.format("Erro ao salvar o usuário."));
         }
     }
 
