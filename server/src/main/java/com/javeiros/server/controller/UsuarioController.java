@@ -2,6 +2,7 @@ package com.javeiros.server.controller;
 
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.exception.EntidadeJaExisteException;
+import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
 
 import com.javeiros.server.repository.UsuarioRepository;
@@ -29,14 +30,14 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<String> cadastrarUsuario(@RequestBody UsuarioDTO cadastroDTO) {
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         try {
-            usuarioService.cadastrarUsuario(cadastroDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso");
+            Usuario novoUsuario = usuarioService.cadastrarUsuario(usuarioDTO);
+            return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
         }catch (EntidadeJaExisteException e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body("Ocorreu um erro ao salvar o novo usuário, favor tente novamente");
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }catch (UsuarioNaoSalvoException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -64,15 +65,6 @@ public class UsuarioController {
         return artigos;
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }
