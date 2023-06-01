@@ -49,12 +49,10 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(Long id, String nome, String sobrenome, String numeroWhatsapp, String perfilDiscord, String email,
-			String senha, String perfilGithub, PerfilCandidato perfilCandidato) {
-		// Construtor que recebe todos os parâmetros necessários para criar um objetoCadastro.
-		super();
-		this.idUsuario = id;
-		this.nomeUsuario = nome;
+	public Usuario(Long idUsuario, String nomeUsuario, String sobrenome, String numeroWhatsapp, String perfilDiscord,
+				   String email, String senha, String perfilGithub, PerfilCandidato perfilCandidato, List<AreaDeAtuacao> areas) {
+		this.idUsuario = idUsuario;
+		this.nomeUsuario = nomeUsuario;
 		this.sobrenome = sobrenome;
 		this.numeroWhatsapp = numeroWhatsapp;
 		this.perfilDiscord = perfilDiscord;
@@ -62,15 +60,15 @@ public class Usuario {
 		this.senha = senha;
 		this.perfilGithub = perfilGithub;
 		this.perfilCandidato = perfilCandidato;
-
-	}
-
-	public List<AreaDeAtuacao> getAreas() {
-		return areas;
+		this.areas = areas;
 	}
 
 	public void setAreas(List<AreaDeAtuacao> areas) {
 		this.areas = areas;
+	}
+
+	public List<AreaDeAtuacao> getAreas() {
+		return areas;
 	}
 
 	public Long getIdUsuario() {
@@ -151,18 +149,5 @@ public class Usuario {
 		this.perfilCandidato = perfilCandidato;
 	}
 
-
-	public void DtoParseModel(UsuarioDTO cadastroDTO){
-		this.nomeUsuario = cadastroDTO.getNomeUsuario();
-		this.sobrenome = cadastroDTO.getSobrenome();
-		this.senha = cadastroDTO.getSenha();
-		this.numeroWhatsapp = cadastroDTO.getNumeroWhatsapp();
-		this.perfilDiscord = cadastroDTO.getPerfilDiscord();
-		this.email = cadastroDTO.getEmail();
-		this.perfilGithub = cadastroDTO.getPerfilGithub();
-		this.perfilCandidato = cadastroDTO.getPerfilCandidato();
-		this.areas=cadastroDTO.getAreas();
-
-	}
 
 }
