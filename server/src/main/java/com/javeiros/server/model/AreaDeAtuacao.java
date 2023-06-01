@@ -25,9 +25,6 @@ public class AreaDeAtuacao {
         return idArea;
     }
 
-    public void setIdArea(Long idArea) {
-        this.idArea = idArea;
-    }
 
     public String getNomeArea() {
         return nomeArea;

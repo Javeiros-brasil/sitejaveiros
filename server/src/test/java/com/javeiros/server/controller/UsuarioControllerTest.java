@@ -3,7 +3,9 @@ package com.javeiros.server.controller;
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.enums.PerfilCandidato;
 import com.javeiros.server.model.AreaDeAtuacao;
+import com.javeiros.server.model.Usuario;
 import com.javeiros.server.service.UsuarioService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -70,5 +73,16 @@ public class UsuarioControllerTest {
         // Verificamos se a mensagem de resposta contém a mensagem de erro esperada. Se não contiver, o teste falhará.
         assertEquals("Ocorreu um erro ao salvar o novo usuário, favor tente novamente", response.getBody());
     }
+
+    @Test
+    void deveRetornarUsuarioBuscadoNoFiltro() {
+
+
+        ResponseEntity<List<Usuario>> response = usuarioController.filtroUsuario(Arrays.asList("BACKEND", "FRONTEND"), "Erasmo");
+
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertTrue(response.getBody().contains(usuarioDTO));
+    }
+
 
 }

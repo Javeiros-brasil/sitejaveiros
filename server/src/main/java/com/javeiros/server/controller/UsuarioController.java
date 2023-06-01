@@ -55,13 +55,13 @@ public class UsuarioController {
 
 
     @GetMapping("/filtro")
-    public List<UsuarioDTO> filtroUsuario(
+    public ResponseEntity filtroUsuario(
             @RequestParam(required = false) List<String> nomesArea,
             @RequestParam(required = false) String nomeUsuario){
 
         List<UsuarioDTO> artigos = usuarioService.filtroUsuario(nomesArea, nomeUsuario);
 
-        return artigos;
+        return ResponseEntity.status(HttpStatus.OK).body(artigos);
 
     }
 
