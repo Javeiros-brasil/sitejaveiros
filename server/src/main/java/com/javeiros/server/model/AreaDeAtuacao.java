@@ -11,7 +11,7 @@ public class AreaDeAtuacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idArea;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String nomeArea;
 
     public AreaDeAtuacao(){}

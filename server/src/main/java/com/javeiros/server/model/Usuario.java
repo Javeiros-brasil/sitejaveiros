@@ -36,7 +36,7 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private PerfilCandidato perfilCandidato;
 
-	@Column(nullable = true)
+	@Column(nullable = false)
 	@ManyToMany
 	@JoinTable(
 			name = "area_usuario",

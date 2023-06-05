@@ -34,12 +34,7 @@ public class AreaDeAtuacaoControllerTest {
 
     @BeforeEach
     void setup(){
-
-
-
         areaDeAtuacaoDTO = new AreaDeAtuacaoDTO("Python");
-
-
     }
 
     @Test
