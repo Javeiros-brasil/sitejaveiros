@@ -1,13 +1,12 @@
 package com.javeiros.server.controller;
 
 import com.javeiros.server.dto.UsuarioDTO;
+import com.javeiros.server.enums.AreaAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
-import com.javeiros.server.model.AreaDeAtuacao;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.service.UsuarioService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,15 +38,11 @@ public class UsuarioControllerTest {
     void setup(){
         usuarioDTO = new UsuarioDTO("Erasmo", "Bezerra", "27997512017",
                                     "Erasmo Bezerra#9245", "erasmo.ads.tech@gmail.com", "sd34r3ferf34f",
-                                    "erasmobezerra", PerfilCandidato.JUNIOR,
-                                    Arrays.asList( new AreaDeAtuacao(1L,"BACKEND"),
-                                                   new AreaDeAtuacao(2L, "FRONTEND")));
+                                    "erasmobezerra", PerfilCandidato.JUNIOR, AreaAtuacao.FRONTEND);
 
         novoUsuario = new Usuario(1L, "Erasmo", "Bezerra", "27997512017",
                                 "Erasmo Bezerra#9245", "erasmo.ads.tech@gmail.com", "sd34r3ferf34f",
-                                "erasmobezerra", PerfilCandidato.JUNIOR,
-                                Arrays.asList( new AreaDeAtuacao(1L,"BACKEND"),
-                                        new AreaDeAtuacao(2L, "FRONTEND")));
+                                "erasmobezerra", PerfilCandidato.JUNIOR, AreaAtuacao.FRONTEND);
     }
 
     @Test
@@ -91,14 +86,15 @@ public class UsuarioControllerTest {
     void deveRetornarUsuarioBuscadoNoFiltro() {
 
         // Mock do resultado do serviço
-        when(usuarioService.filtroUsuario(Arrays.asList("BACKEND"), "Erasmo"))
+        when(usuarioService.filtroUsuario("Erasmo",AreaAtuacao.FRONTEND))
                 .thenReturn(Arrays.asList(usuarioDTO));
 
-        ResponseEntity<List<UsuarioDTO>> response = usuarioController.filtroUsuario(Arrays.asList("BACKEND"), "Erasmo");
+        ResponseEntity<List<UsuarioDTO>> response = usuarioController.filtroUsuario("Erasmo", AreaAtuacao.FRONTEND );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertTrue(response.getBody().contains(usuarioDTO));
-    }
+
+        }
     }
 
 

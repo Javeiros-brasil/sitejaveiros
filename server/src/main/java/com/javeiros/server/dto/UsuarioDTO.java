@@ -1,6 +1,6 @@
 package com.javeiros.server.dto;
 
-import com.javeiros.server.model.AreaDeAtuacao;
+import com.javeiros.server.enums.AreaAtuacao;
 import org.springframework.beans.BeanUtils;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.enums.PerfilCandidato;
@@ -18,11 +18,11 @@ public class UsuarioDTO {
 	private String senha;
 	private String perfilGithub;
 	private PerfilCandidato perfilCandidato;
-	private List<AreaDeAtuacao> areas;
+	private AreaAtuacao areaAtuacao;
 
 	public UsuarioDTO(String nomeUsuario, String sobrenome, String numeroWhatsapp, String perfilDiscord,
 					  String email, String senha, String perfilGithub, PerfilCandidato perfilCandidato,
-					  List<AreaDeAtuacao> areas) {
+					  AreaAtuacao areaAtuacao) {
 		this.nomeUsuario = nomeUsuario;
 		this.sobrenome = sobrenome;
 		this.numeroWhatsapp = numeroWhatsapp;
@@ -31,7 +31,7 @@ public class UsuarioDTO {
 		this.senha = senha;
 		this.perfilGithub = perfilGithub;
 		this.perfilCandidato = perfilCandidato;
-		this.areas = areas;
+		this.areaAtuacao = areaAtuacao;
 	}
 
 	// metodo que converte uma list<Usuario> para um List<usuarioDto>
@@ -41,7 +41,7 @@ public class UsuarioDTO {
 						usuario.getNomeUsuario(), usuario.getSobrenome(),
 						usuario.getNumeroWhatsapp(), usuario.getPerfilDiscord(),
 						usuario.getEmail(), usuario.getSenha(), usuario.getPerfilGithub(),
-						usuario.getPerfilCandidato(), usuario.getAreas()
+						usuario.getPerfilCandidato(), usuario.getAreaAtuacao()
 						))
 				.collect(Collectors.toList());
 	}
@@ -63,12 +63,12 @@ public class UsuarioDTO {
 		BeanUtils.copyProperties(entity, this);
 	}
 
-	public List<AreaDeAtuacao> getAreas() {
-		return areas;
+	public AreaAtuacao getAreaAtuacao() {
+		return areaAtuacao;
 	}
 
-	public void setAreas(List<AreaDeAtuacao> areas) {
-		this.areas = areas;
+	public void setAreaAtuacao(AreaAtuacao areaAtuacao) {
+		this.areaAtuacao = areaAtuacao;
 	}
 
 	public String getNomeUsuario() {

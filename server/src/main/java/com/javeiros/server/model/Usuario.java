@@ -3,6 +3,7 @@ package com.javeiros.server.model;
 import javax.persistence.*;
 
 import com.javeiros.server.dto.UsuarioDTO;
+import com.javeiros.server.enums.AreaAtuacao;
 import com.javeiros.server.enums.PerfilCandidato;
 
 import java.util.List;
@@ -36,21 +37,16 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private PerfilCandidato perfilCandidato;
 
-	@Column(nullable = true)
-	@ManyToMany
-	@JoinTable(
-			name = "area_usuario",
-			joinColumns = @JoinColumn(name = "id_usuario"),
-			inverseJoinColumns = @JoinColumn(name = "id_area")
-	)
-	private List<AreaDeAtuacao> areas;
+	@Enumerated(EnumType.STRING)
+	private AreaAtuacao areaAtuacao;
+
 
 
 	public Usuario() {
 	}
 
 	public Usuario(Long idUsuario, String nomeUsuario, String sobrenome, String numeroWhatsapp, String perfilDiscord,
-				   String email, String senha, String perfilGithub, PerfilCandidato perfilCandidato, List<AreaDeAtuacao> areas) {
+				   String email, String senha, String perfilGithub, PerfilCandidato perfilCandidato, AreaAtuacao areaAtuacao) {
 		this.idUsuario = idUsuario;
 		this.nomeUsuario = nomeUsuario;
 		this.sobrenome = sobrenome;
@@ -60,16 +56,10 @@ public class Usuario {
 		this.senha = senha;
 		this.perfilGithub = perfilGithub;
 		this.perfilCandidato = perfilCandidato;
-		this.areas = areas;
+		this.areaAtuacao = areaAtuacao;
+
 	}
 
-	public void setAreas(List<AreaDeAtuacao> areas) {
-		this.areas = areas;
-	}
-
-	public List<AreaDeAtuacao> getAreas() {
-		return areas;
-	}
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -150,4 +140,11 @@ public class Usuario {
 	}
 
 
+	public AreaAtuacao getAreaAtuacao() {
+		return areaAtuacao;
+	}
+
+	public void setAreaAtuacao(AreaAtuacao areaAtuacao) {
+		this.areaAtuacao = areaAtuacao;
+	}
 }
