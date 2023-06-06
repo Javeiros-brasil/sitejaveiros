@@ -1,12 +1,13 @@
 package com.javeiros.server.controller;
 
 import com.javeiros.server.dto.UsuarioDTO;
+import com.javeiros.server.enums.AreaAtuacao;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
 
 import com.javeiros.server.repository.UsuarioRepository;
-import com.javeiros.server.repository.filtro.UsuarioCustomRepository;
+
 import com.javeiros.server.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private UsuarioCustomRepository usuarioCustomRepository;
+
 
     @Autowired
     private UsuarioService usuarioService;
@@ -57,12 +57,15 @@ public class UsuarioController {
 
     @GetMapping("/filtro")
     public ResponseEntity filtroUsuario(
-            @RequestParam(required = false) List<String> nomesArea,
-            @RequestParam(required = false) String nomeUsuario){
+            //@RequestParam faz com que os parâmetros do método se tornem parâmetros que podem ser passados na requisição.
+            //Quando utilizado com "required = false", indica que o parâmetro não é obrigatório.
+            @RequestParam(required = false) String nomeUsuario,
+            @RequestParam(required = false) AreaAtuacao nomesArea
+            ){
 
-        List<UsuarioDTO> artigos = usuarioService.filtroUsuario(nomesArea, nomeUsuario);
+        List<UsuarioDTO> usuarios = usuarioService.filtroUsuario(nomeUsuario, nomesArea);
 
-        return ResponseEntity.status(HttpStatus.OK).body(artigos);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
 
     }
 

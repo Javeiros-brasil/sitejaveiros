@@ -1,11 +1,11 @@
 package com.javeiros.server.service;
 
 import com.javeiros.server.dto.UsuarioDTO;
+import com.javeiros.server.enums.AreaAtuacao;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.repository.UsuarioRepository;
-import com.javeiros.server.repository.filtro.UsuarioCustomRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private UsuarioCustomRepository usuarioCustomRepository;
+
 
     public Usuario cadastrarUsuario(UsuarioDTO usuarioDTO) {
         Usuario verificaEmail = usuarioRepository.findByEmail(usuarioDTO.getEmail());
@@ -39,12 +38,21 @@ public class UsuarioService {
     }
 
 
-    public List<UsuarioDTO> filtroUsuario(List<String> nomesArea, String nomeUsuario){
+    public List<UsuarioDTO> filtroUsuario(String nomeUsuario, AreaAtuacao nomeArea){
 
-        List<Usuario> artigos = usuarioCustomRepository.filtroUsuario(nomesArea, nomeUsuario);
+        if(nomeUsuario != null && nomeArea != null){
+            List<Usuario> usuarios = usuarioRepository.findByNomeUsuarioContainsAndAreaAtuacao(nomeUsuario, nomeArea);
+            return UsuarioDTO.converterListDto(usuarios);
+        } else if (nomeArea != null) {
+            List<Usuario> usuarios = usuarioRepository.findByAreaAtuacao(nomeArea);
+            return UsuarioDTO.converterListDto(usuarios);
+        } else if (nomeUsuario != null) {
+            List<Usuario> usuarios = usuarioRepository.findByNomeUsuarioContains(nomeUsuario);
+            return UsuarioDTO.converterListDto(usuarios);
 
-
-        return UsuarioDTO.converterListDto(artigos);
+        }
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return UsuarioDTO.converterListDto(usuarios);
 
     }
 
@@ -66,7 +74,7 @@ public class UsuarioService {
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
         usuarioExistente.setPerfilGithub(usuarioAtualizado.getPerfilGithub());
         usuarioExistente.setPerfilCandidato(usuarioAtualizado.getPerfilCandidato());
-        usuarioExistente.setAreas(usuarioAtualizado.getAreas());
+        usuarioExistente.setAreaAtuacao(usuarioAtualizado.getAreaAtuacao());
 
         //Salvar as mudanças no banco de dados
         Usuario usuarioAtualizadoSalvo = usuarioRepository.save(usuarioExistente);
