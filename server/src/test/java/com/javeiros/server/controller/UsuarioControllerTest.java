@@ -57,7 +57,7 @@ public class UsuarioControllerTest {
         ResponseEntity<?> response = usuarioController.cadastrarUsuario(usuarioDTO);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(novoUsuario, response.getBody());
+        assertEquals("Usuário cadastrado com sucesso", response.getBody());
         verify(usuarioService, times(1)).cadastrarUsuario(usuarioDTO);
     }
 

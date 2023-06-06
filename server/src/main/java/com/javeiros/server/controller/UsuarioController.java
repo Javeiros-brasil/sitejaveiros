@@ -32,8 +32,8 @@ public class UsuarioController {
     @PostMapping("/cadastro")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         try {
-            Usuario novoUsuario = usuarioService.cadastrarUsuario(usuarioDTO);
-            return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
+            usuarioService.cadastrarUsuario(usuarioDTO);
+            return new ResponseEntity<>("Usuário cadastrado com sucesso", HttpStatus.CREATED);
         }catch (EntidadeJaExisteException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }catch (UsuarioNaoSalvoException e) {
