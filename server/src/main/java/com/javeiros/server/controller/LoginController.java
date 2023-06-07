@@ -24,7 +24,6 @@ public class LoginController {
 
         try{
            UsuarioDTO usuarioDTO = authService.authenticate(email, senha);
-
            return ResponseEntity.status(HttpStatus.OK).body(usuarioDTO);
 
         }catch (UsuarioNaoSalvoException e){

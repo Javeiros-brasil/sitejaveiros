@@ -2,6 +2,7 @@ package com.javeiros.server.service;
 
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.enums.AreaAtuacao;
+import com.javeiros.server.enums.PerfilCandidato;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
@@ -9,6 +10,7 @@ import com.javeiros.server.repository.UsuarioRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.util.EnumUtils;
 
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class UsuarioService {
         if (verificaEmail != null) {
             throw new EntidadeJaExisteException(String.format("Este email já foi cadastrado por outro usuário."));
         }
+
+
 
         try {
             Usuario novoUsuario = new Usuario();
