@@ -1,7 +1,10 @@
 package com.javeiros.server.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.enums.AreaAtuacao;
@@ -39,21 +42,23 @@ public class Usuario {
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Column(nullable = false)
 	@NotBlank
-	private String senha;
 	@Column(nullable = false)
+	private String senha;
+
 	@NotNull
+	@Column(nullable = false)
 	private String perfilGithub;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	@NotNull
+
 	private PerfilCandidato perfilCandidato;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	@NotNull
 	private AreaAtuacao areaAtuacao;
 
 
