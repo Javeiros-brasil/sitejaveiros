@@ -33,20 +33,10 @@ public class UsuarioControllerTest {
     @Mock
     private UsuarioService usuarioService;
 
-
-
-
-
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
     }
-
-    /*
-    *   TESTAR CENÁRIOS: usuarioDTO sem atributos obrigatorios / sem atributos opcionais
-    *
-    *   TESTAR HIBERNATE VALIDATOR COM TELEFONE / EMAIL
-    * */
 
     @Test
     void cadastrarUsuario_Sucesso() {
@@ -89,24 +79,19 @@ public class UsuarioControllerTest {
 
     @Test
     void cadastrarUsuario_CONFLICT_EmailJaExiste()  {
-        // Dados de entrada
+
         UsuarioDTO usuarioDTO = new UsuarioDTO("Erasmo", "Bezerra", "(27) 99751-2017",
                 "Erasmo Bezerra#9245", "erasmo.ads.tech@gmail.com", "sd34r3ferf34f",
                 "erasmobezerra", PerfilCandidato.JUNIOR, AreaAtuacao.FRONTEND);
 
-        // Mock do serviço para lançar exceção
         when(usuarioService.cadastrarUsuario(any(UsuarioDTO.class)))
                 .thenThrow(new EntidadeJaExisteException("Este email já foi cadastrado por outro usuário."));
 
-        // Chamar o método do controlador e capturar a resposta
         ResponseEntity<?> responseEntity = usuarioController.cadastrarUsuario(usuarioDTO);
 
-        // Verificar se o serviço foi chamado uma vez
-        verify(usuarioService, times(1)).cadastrarUsuario(any(UsuarioDTO.class));
-
-        // Verificar o resultado da resposta
         assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
         assertEquals("Este email já foi cadastrado por outro usuário.", responseEntity.getBody());
+        verify(usuarioService, times(1)).cadastrarUsuario(any(UsuarioDTO.class));
     }
 
     @Test

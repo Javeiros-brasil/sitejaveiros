@@ -53,7 +53,6 @@ public class Usuario {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-
 	private PerfilCandidato perfilCandidato;
 
 	@NotNull
