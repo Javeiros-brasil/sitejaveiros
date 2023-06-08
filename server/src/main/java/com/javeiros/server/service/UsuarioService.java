@@ -3,6 +3,7 @@ package com.javeiros.server.service;
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.enums.AreaAtuacao;
 import com.javeiros.server.exception.EntidadeJaExisteException;
+import com.javeiros.server.exception.PerfilCandidatoNaoExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.repository.UsuarioRepository;
@@ -21,21 +22,22 @@ public class UsuarioService {
 
 
 
-    public Usuario cadastrarUsuario(UsuarioDTO usuarioDTO) {
+    public Usuario cadastrarUsuario(UsuarioDTO usuarioDTO) throws PerfilCandidatoNaoExisteException {
         Usuario verificaEmail = usuarioRepository.findByEmail(usuarioDTO.getEmail());
-
         if (verificaEmail != null) {
-            throw new EntidadeJaExisteException(String.format("Este email já foi cadastrado por outro usuário."));
+            throw new EntidadeJaExisteException("Este email já foi cadastrado por outro usuário.");
         }
-
         try {
             Usuario novoUsuario = new Usuario();
             BeanUtils.copyProperties(usuarioDTO, novoUsuario);
             return usuarioRepository.save(novoUsuario);
         } catch (RuntimeException e) {
-            throw new UsuarioNaoSalvoException(String.format("Erro ao salvar o usuário."));
+            throw new UsuarioNaoSalvoException("Erro ao salvar o usuário. Erro => " + e.getMessage());
         }
     }
+
+
+
 
 
     public List<UsuarioDTO> filtroUsuario(String nomeUsuario, AreaAtuacao nomeArea){

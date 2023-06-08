@@ -1,7 +1,9 @@
 package com.javeiros.server.dto;
 
 import com.javeiros.server.enums.AreaAtuacao;
-import org.springframework.beans.BeanUtils;
+import com.javeiros.server.exception.AreaAtuacaoNaoExisteException;
+import com.javeiros.server.exception.PerfilCandidatoNaoExisteException;
+
 import com.javeiros.server.model.Usuario;
 import com.javeiros.server.enums.PerfilCandidato;
 
@@ -51,26 +53,6 @@ public class UsuarioDTO {
 	public UsuarioDTO() {
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public UsuarioDTO(Usuario entity) {
-		BeanUtils.copyProperties(entity, this);
-	}
-
-	public AreaAtuacao getAreaAtuacao() {
-		return areaAtuacao;
-	}
-
-	public void setAreaAtuacao(AreaAtuacao areaAtuacao) {
-		this.areaAtuacao = areaAtuacao;
-	}
-
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
@@ -111,6 +93,14 @@ public class UsuarioDTO {
 		this.email = email;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getPerfilGithub() {
 		return perfilGithub;
 	}
@@ -123,10 +113,25 @@ public class UsuarioDTO {
 		return perfilCandidato;
 	}
 
-	public void setPerfilCandidato(PerfilCandidato perfilCandidato) {
-		this.perfilCandidato = perfilCandidato;
+	public void setPerfilCandidato(String perfilCandidato)  {
+		try {
+			this.perfilCandidato = PerfilCandidato.valueOf(perfilCandidato);
+		}catch (IllegalArgumentException e) {
+			throw new PerfilCandidatoNaoExisteException("Perfil do candidato informado não existe.");
+		}
 	}
 
+	public AreaAtuacao getAreaAtuacao() {
+		return areaAtuacao;
+	}
+
+	public void setAreaAtuacao(String areaAtuacao) {
+		try {
+			this.areaAtuacao = AreaAtuacao.valueOf(areaAtuacao);
+		} catch (IllegalArgumentException e) {
+			throw new AreaAtuacaoNaoExisteException("Area de atuação informada não existe.");
+		}
 
 
+	}
 }

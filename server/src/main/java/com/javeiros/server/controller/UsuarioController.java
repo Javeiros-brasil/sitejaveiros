@@ -5,10 +5,9 @@ import com.javeiros.server.enums.AreaAtuacao;
 import com.javeiros.server.exception.EntidadeJaExisteException;
 import com.javeiros.server.exception.UsuarioNaoSalvoException;
 import com.javeiros.server.model.Usuario;
-
 import com.javeiros.server.repository.UsuarioRepository;
-
 import com.javeiros.server.service.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
-
     @Autowired
     private UsuarioService usuarioService;
 
@@ -34,12 +31,13 @@ public class UsuarioController {
         try {
             usuarioService.cadastrarUsuario(usuarioDTO);
             return new ResponseEntity<>("Usuário cadastrado com sucesso", HttpStatus.CREATED);
-        }catch (EntidadeJaExisteException e){
+        } catch (EntidadeJaExisteException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }catch (UsuarioNaoSalvoException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (UsuarioNaoSalvoException p) {
+            return new ResponseEntity<>(p.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
