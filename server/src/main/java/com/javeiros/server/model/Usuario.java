@@ -1,6 +1,7 @@
 package com.javeiros.server.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import com.javeiros.server.dto.UsuarioDTO;
 import com.javeiros.server.enums.AreaAtuacao;
@@ -15,31 +16,45 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUsuario;
 
+
+	@NotBlank
 	@Column(nullable = false)
 	private String nomeUsuario;
 
+	@NotBlank
 	@Column(nullable = false)
 	private String sobrenome;
 
+	@NotBlank
+	@Pattern(regexp = "\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}")
 	@Column(nullable = false)
 	private String numeroWhatsapp;
 
+	@NotNull
+	@Column(nullable = false)
 	private String perfilDiscord;
 
+	@Email
+	@NotBlank
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
+	@NotBlank
 	private String senha;
-
+	@Column(nullable = false)
+	@NotNull
 	private String perfilGithub;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@NotNull
 	private PerfilCandidato perfilCandidato;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@NotNull
 	private AreaAtuacao areaAtuacao;
-
 
 
 	public Usuario() {
